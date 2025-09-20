@@ -3,233 +3,304 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zhou Bingjie - Personal Portfolio</title>
+    <meta name="description" content="Professional Portfolio Website - Showcasing my skills, projects and experience">
+    <meta name="keywords" content="portfolio, professional, design, development, projects">
+    <title>Personal Portfolio | Professional Showcase</title>
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <!-- Header Navigation -->
+    <header>
+        <nav>
             <div class="nav-container">
-            <div class="nav-logo">
-                <h3>Zhou Bingjie</h3>
+                <div class="logo">
+                    <h1>Personal Portfolio</h1>
                 </div>
                 <ul class="nav-menu">
-                <li class="nav-item">
-                    <a href="#home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#about" class="nav-link">About</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#skills" class="nav-link">Skills</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#projects" class="nav-link">Projects</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#contact" class="nav-link">Contact</a>
-                </li>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
-            <div class="nav-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </nav>
+    </header>
 
-    <!-- Hero Section -->
+    <!-- Main Content Area -->
+    <main>
+        <!-- Home Hero Section -->
         <section id="home" class="hero-section">
             <div class="container">
                 <div class="hero-content">
                     <div class="hero-text">
-                    <h1>Hello, I'm <span class="highlight">Zhou Bingjie</span></h1>
-                    <h2>Master Student</h2>
-                    <p>Focused on creating elegant, functional digital experiences.</p>
+                        <h1>Hello, I'm <span class="highlight">Zhou Bingjie</span></h1>
+                        <h2>Full-Stack Developer & UI/UX Designer</h2>
+                        <p>Focused on creating elegant, functional digital experiences. </p>
                         <div class="hero-buttons">
-                        <button class="btn-primary">View Portfolio</button>
-                        <button class="btn-secondary">Contact Me</button>
+                            <button class="btn-primary">View Portfolio</button>
+                            <button class="btn-secondary">Download Resume</button>
+                        </div>
+                    </div>
+                    <div class="hero-image">
+                        <img src="images/main.png" alt="Profile Picture">
                     </div>
                 </div>
-                <div class="hero-image">
-                    <img src="images/profile.jpg" alt="Zhou Bingjie Profile">
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <article class="about-text">
+                        <p>I am currently pursuing a Master's degree in Information Systems, with a background in Psychology. Over the years, I've grown passionate about bridging human-centered design with technical systems, exploring how data and technology can be applied to create meaningful and intuitive user experiences. I enjoy tackling complex challenges, finding clarity in them, and transforming ideas into tangible solutions.</p>
+                        
+                        <h3>Academic Background</h3>
+                        <p>I completed my undergraduate degree in Psychology, where I participated in several UX research and applied projects, such as developing digital tools for education and mental wellness. These experiences equipped me with strong research methods, data analysis skills, and an understanding of the psychological drivers behind user behavior. Now, as a graduate student, I am focusing on information systems development and integration, with an emphasis on combining user-centered design and data-driven approaches.</p>
+                        
+                        <h3>Professional Philosophy & Technical Skills</h3>
+                        <p>I believe technology only creates real value when it is closely aligned with human needs. Guided by this philosophy, my work and projects are built on the principle of human-centered design. My technical skills include user research, interaction design, and prototyping, alongside a working knowledge of front-end development and data processing. With this interdisciplinary background, I am able to connect user insights with technical development, making collaboration within diverse teams more effective.</p>
+                    </article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <h2>About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Hi! I'm Zhou Bingjie, a passionate Master student focused on User Experience Design and Human-Computer Interaction. I enjoy creating digital experiences that are both beautiful and functional.</p>
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="container">
+                <h2>Skills</h2>
+                <div class="skills-content">
+                    <table class="skills-table">
+                        <thead>
+                            <tr>
+                                <th>Skill Category</th>
+                                <th>Specific Skills</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="skill-row research">
+                                <td data-label="Skill Category">User Research</td>
+                                <td data-label="Specific Skills">User Interview, Contextual Inquiry, Information Architecture, Journey Mapping, Empathy Mapping, Competitive Analysis, Usability Testing, Test Users Recruiting, Heuristic Evaluation</td>
+                            </tr>
+                            <tr class="skill-row design">
+                                <td data-label="Skill Category">Design</td>
+                                <td data-label="Specific Skills">User Experience Design, Interface Design, Visual Design, Prototyping</td>
+                            </tr>
+                            <tr class="skill-row tools">
+                                <td data-label="Skill Category">Tools</td>
+                                <td data-label="Specific Skills">Figma, Sketch, Principle, Microsoft Office, Adobe Suite (Illustrator, InDesign, Photoshop), SPSS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Gallery Section -->
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2>Project Portfolio</h2>
+                <div class="gallery-container">
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p1.png" alt="E-commerce Platform Project">
+                            <div class="gallery-overlay">
+                                <h3>E-commerce Platform</h3>
+                                <div class="gallery-tags">
+                                    <span>React</span>
+                                    <span>Node.js</span>
+                                    <span>MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p2.png" alt="Task Management Application">
+                            <div class="gallery-overlay">
+                                <h3>Task Management App</h3>
+                                <div class="gallery-tags">
+                                    <span>Vue.js</span>
+                                    <span>Python</span>
+                                    <span>PostgreSQL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p3.png" alt="Mobile App Design">
+                            <div class="gallery-overlay">
+                                <h3>Mobile App Design</h3>
+                                <div class="gallery-tags">
+                                    <span>Figma</span>
+                                    <span>UI/UX</span>
+                                    <span>Prototype Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p4.png" alt="Data Visualization Platform">
+                            <div class="gallery-overlay">
+                                <h3>Data Visualization Platform</h3>
+                                <div class="gallery-tags">
+                                    <span>D3.js</span>
+                                    <span>React</span>
+                                    <span>Express</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p5.png" alt="Social Media Application">
+                            <div class="gallery-overlay">
+                                <div class="gallery-tags">
+                                    <span>React Native</span>
+                                    <span>Socket.io</span>
+                                    <span>Firebase</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="gallery-item">
+                        <div class="gallery-image">
+                            <img src="images/p6.png" alt="Corporate Website">
+                            <div class="gallery-overlay">
+                                <h3>Corporate Website</h3>
+                                <p>Responsive corporate official website, optimized for SEO and user experience.</p>
+                                <div class="gallery-tags">
+                                    <span>HTML5</span>
+                                    <span>CSS3</span>
+                                    <span>JavaScript</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Contact Me</h2>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <h3>Contact Information</h3>
+                        <p>If you are interested in my work or have any project collaboration intentions, please feel free to contact me.</p>
+                        <div class="contact-details">
+                            <div class="contact-item">
+                                <strong>Email:</strong>
+                                <span>zhou.bingji@northeastern.edu</span>
+                            </div>
+                            <div class="contact-item">
+                                <strong>Phone:</strong>
+                                <span>+1 (857) 313-2856</span>
+                            </div>
+                            <div class="contact-item">
+                                <strong>Address:</strong>
+                                <span>75 Peterborough St, Boston, MA 02215</span>
+                            </div>
+                        </div>
+                    </div>
                     
-                    <p>With a strong background in user research and design thinking, I strive to understand user needs and translate them into intuitive interfaces. My approach combines analytical thinking with creative problem-solving to deliver meaningful solutions.</p>
-                    
-                    <div class="about-highlights">
-                        <div class="highlight-item">
-                            <h3>User-Centered Design</h3>
-                            <p>Always putting users first in every design decision</p>
+                    <form class="contact-form">
+                        <h3>Send Message</h3>
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required>
                         </div>
-                        <div class="highlight-item">
-                            <h3>Research-Driven</h3>
-                            <p>Data-informed insights guide my design process</p>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
                         </div>
-                        <div class="highlight-item">
-                            <h3>Collaborative Approach</h3>
-                            <p>Working closely with teams to achieve common goals</p>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone">
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="subject">Subject *</label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Please select a subject</option>
+                                <option value="project">Project Collaboration</option>
+                                <option value="job">Job Opportunity</option>
+                                <option value="consultation">Consultation Service</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Skills Section -->
-    <section id="skills" class="skills-section">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-content">
-                <table class="skills-table">
-                    <thead>
-                        <tr>
-                            <th>Skill Category</th>
-                            <th>Specific Skills</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="skill-row research">
-                            <td data-label="Skill Category">User Research</td>
-                            <td data-label="Specific Skills">User Interview, Contextual Inquiry, Information Architecture, Journey Mapping, Empathy Mapping, Competitive Analysis, Usability Testing, Test Users Recruiting, Heuristic Evaluation</td>
-                        </tr>
-                        <tr class="skill-row design">
-                            <td data-label="Skill Category">Design</td>
-                            <td data-label="Specific Skills">User Experience Design, Interface Design, Visual Design, Prototyping</td>
-                        </tr>
-                        <tr class="skill-row tools">
-                            <td data-label="Skill Category">Tools</td>
-                            <td data-label="Specific Skills">Figma, Sketch, Principle, Microsoft Office, Adobe Suite (Illustrator, InDesign, Photoshop), SPSS</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Gallery Section -->
-    <section id="projects" class="projects-section">
-        <div class="container">
-            <h2>Project Gallery</h2>
-            <div class="project-gallery">
-                <div class="project-item">
-                    <img src="images/project1.jpg" alt="Project 1" class="project-image">
-                    <div class="project-overlay">
-                        <h3>E-commerce Mobile App</h3>
-                        <p>UX research and interface design for shopping platform</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <img src="images/project2.jpg" alt="Project 2" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Educational Dashboard</h3>
-                        <p>Learning management system interface design</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <img src="images/project3.jpg" alt="Project 3" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Health Tracker App</h3>
-                        <p>User-centered design for wellness application</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <img src="images/project4.jpg" alt="Project 4" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Banking Interface</h3>
-                        <p>Financial services user experience redesign</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <img src="images/project5.jpg" alt="Project 5" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Travel Planning Tool</h3>
-                        <p>Journey mapping and interface prototyping</p>
-                    </div>
-                </div>
-                <div class="project-item">
-                    <img src="images/project6.jpg" alt="Project 6" class="project-image">
-                    <div class="project-overlay">
-                        <h3>Smart Home Interface</h3>
-                        <p>IoT device control system design</p>
-                    </div>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-content">
+            <h3>Quick Navigation</h3>
+            <nav class="sidebar-nav">
+                <a href="#home">Back to Top</a>
+                <a href="#about">About Me</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            
+            <div class="sidebar-social">
+                <h4>Social Media</h4>
+                <div class="social-links">
+                    <a href="#" title="LinkedIn">LinkedIn</a>
+                    <a href="#" title="GitHub">GitHub</a>
+                    <a href="#" title="Behance">Behance</a>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container">
-            <h2>Contact Me</h2>
-            <div class="contact-content">
-                <div class="contact-info">
-                    <h3>Contact Information</h3>
-                    <p>If you are interested in my work or have any project collaboration intentions, please feel free to contact me.</p>
-                    <div class="contact-details">
-                        <div class="contact-item">
-                            <strong>Email:</strong>
-                            <span>zhou.bingji@northeastern.edu</span>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Phone:</strong>
-                            <span>+1 (857) 313-2856</span>
-                        </div>
-                        <div class="contact-item">
-                            <strong>Address:</strong>
-                            <span>75 Peterborough St, Boston, MA 02215</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <form class="contact-form">
-                    <h3>Send Message</h3>
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
+    </aside>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer>
         <div class="container">
             <div class="footer-content">
-                <div class="footer-info">
-                    <h3>Zhou Bingjie</h3>
-                    <p>Master Student focused on UX Design</p>
+                <div class="footer-section">
+                    <h3>Personal Portfolio</h3>
+                    <p>Focused on creating elegant, functional digital experiences</p>
                 </div>
-                <div class="footer-links">
+                <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#about">About Me</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Service Areas</h4>
+                    <ul>
+                        <li>Frontend Development</li>
+                        <li>UI/UX Design</li>
+                        <li>Full-Stack Development</li>
                     </ul>
                 </div>
             </div>
@@ -238,27 +309,5 @@
             </div>
         </div>
     </footer>
-
-    <script>
-        // Mobile navigation toggle
-        const mobileMenu = document.getElementById('mobile-menu');
-        const navMenu = document.querySelector('.nav-menu');
-
-        mobileMenu.addEventListener('click', function() {
-            mobileMenu.classList.toggle('is-active');
-            navMenu.classList.toggle('active');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
-    
 </body>
 </html>

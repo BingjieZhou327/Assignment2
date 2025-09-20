@@ -19,22 +19,6 @@ Hi! I'm Zhou Bingjie, a Master student focused on User Experience Design and Hum
 - JavaScript
 - Responsive Web Design
 
-## Project Structure
-```
-├── index.html          # Main HTML file
-├── styles.css          # CSS styling
-├── images/             # Image assets
-│   ├── profile.jpg     # Profile picture
-│   ├── project1.jpg    # Project images
-│   ├── project2.jpg
-│   ├── project3.jpg
-│   ├── project4.jpg
-│   ├── project5.jpg
-│   └── project6.jpg
-├── favicon.ico         # Website icon
-└── README.md           # This file
-```
-
 ## Sections
 1. **Navigation** - Easy navigation between sections
 2. **Hero Section** - Introduction and welcome message
@@ -43,13 +27,10 @@ Hi! I'm Zhou Bingjie, a Master student focused on User Experience Design and Hum
 5. **Projects** - Gallery of my design and development work
 6. **Contact** - Contact information and message form
 
-## How to View
-Simply open `index.html` in any modern web browser to view the portfolio.
+
 
 ## Contact Information
 - **Email:** zhou.bingji@northeastern.edu
 - **Phone:** +1 (857) 313-2856
 - **Address:** 75 Peterborough St, Boston, MA 02215
 
----
-Created with ❤️ for my web development course assignment
