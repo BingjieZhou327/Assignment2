@@ -22,6 +22,8 @@
                     <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#projects">Projects</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#gallery">Gallery</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="hamburger">
@@ -196,6 +198,156 @@
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2>What People Say</h2>
+                <div class="testimonials-grid">
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">"</div>
+                            <p>"Zhou Bingjie's work exceeded our expectations. Her attention to detail and user-centered approach transformed our project. The final product was both beautiful and highly functional."</p>
+                            <div class="testimonial-author">
+                                <div class="author-info">
+                                    <h4>Sarah Johnson</h4>
+                                    <span>Project Manager, TechStart Inc.</span>
+                                </div>
+                                <div class="rating">
+                                    <span>★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">"</div>
+                            <p>"Working with Zhou was a pleasure. Her research skills and design thinking brought valuable insights to our team. She has a rare ability to bridge user needs with technical requirements."</p>
+                            <div class="testimonial-author">
+                                <div class="author-info">
+                                    <h4>Michael Chen</h4>
+                                    <span>UX Director, Design Solutions</span>
+                                </div>
+                                <div class="rating">
+                                    <span>★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="quote-icon">"</div>
+                            <p>"Zhou's interdisciplinary background in psychology and information systems makes her uniquely qualified for complex UX challenges. Her prototypes were incredibly well thought out."</p>
+                            <div class="testimonial-author">
+                                <div class="author-info">
+                                    <h4>Dr. Emily Rodriguez</h4>
+                                    <span>Research Supervisor, Innovation Lab</span>
+                                </div>
+                                <div class="rating">
+                                    <span>★★★★★</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Photo Gallery Section -->
+        <section id="gallery" class="photo-gallery-section">
+            <div class="container">
+                <h2>Photo Gallery</h2>
+                <p class="gallery-subtitle">A collection of moments and inspirations from my creative journey</p>
+                
+                <div class="photo-grid">
+                    <div class="photo-item large">
+                        <img src="images/gallery/g1.png" alt="Creative workspace setup">
+                        <article class="photo-overlay">
+                            <h3>Creative Workspace</h3>
+                            <p>My daily inspiration space</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item">
+                        <img src="images/gallery/g2.png" alt="Design sketches and wireframes">
+                        <article class="photo-overlay">
+                            <h3>Design Process</h3>
+                            <p>Sketching ideas to life</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item">
+                        <img src="images/gallery/g3.png" alt="Team collaboration session">
+                        <article class="photo-overlay">
+                            <h3>Team Collaboration</h3>
+                            <p>Working together on projects</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item tall">
+                        <img src="images/gallery/g4.png" alt="UX research materials">
+                        <article class="photo-overlay">
+                            <h3>UX Research</h3>
+                            <p>Understanding user needs</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item tall">
+                        <img src="images/gallery/g5.png" alt="Conference presentation">
+                        <article class="photo-overlay">
+                            <h3>Knowledge Sharing</h3>
+                            <p>Speaking at design conference</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item wide">
+                        <img src="images/gallery/g6.png" alt="Prototype testing session">
+                        <article class="photo-overlay">
+                            <h3>User Testing</h3>
+                            <p>Validating design solutions</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item wide">
+                        <img src="images/gallery/g7.png" alt="Design inspiration wall">
+                        <article class="photo-overlay">
+                            <h3>Inspiration Board</h3>
+                            <p>Collecting creative references</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item">
+                        <img src="images/gallery/g8.png" alt="Mobile app prototyping">
+                        <article class="photo-overlay">
+                            <h3>Mobile Design</h3>
+                            <p>Crafting mobile experiences</p>
+                        </article>
+                    </div>
+                    
+                    <div class="photo-item">
+                        <img src="images/gallery/g9.png" alt="Data visualization work">
+                        <article class="photo-overlay">
+                            <h3>Data Visualization</h3>
+                            <p>Making data beautiful</p>
+                        </article>
+                    </div>
+                    
+                </div>
+                
+                <!-- Photo Modal -->
+                <div id="photoModal" class="photo-modal">
+                    <span class="modal-close">&times;</span>
+                    <img class="modal-content" id="modalImage">
+                    <div class="modal-caption" id="modalCaption"></div>
+                    <div class="modal-nav">
+                        <button class="modal-prev">&#10094;</button>
+                        <button class="modal-next">&#10095;</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Contact Section -->
         <section id="contact" class="contact-section">
@@ -265,6 +417,8 @@
                 <a href="#about">About Me</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#gallery">Gallery</a>
                 <a href="#contact">Contact</a>
             </nav>
             
@@ -292,6 +446,8 @@
                     <ul>
                         <li><a href="#about">About Me</a></li>
                         <li><a href="#projects">Projects</a></li>
+                        <li><a href="#testimonials">Testimonials</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
                         <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
@@ -309,5 +465,136 @@
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript for Photo Gallery -->
+    <script>
+        // Photo Gallery Modal Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('photoModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalCaption = document.getElementById('modalCaption');
+            const closeBtn = document.querySelector('.modal-close');
+            const prevBtn = document.querySelector('.modal-prev');
+            const nextBtn = document.querySelector('.modal-next');
+            const photoItems = document.querySelectorAll('.photo-item');
+            
+            let currentImageIndex = 0;
+            const images = [];
+            
+            // Collect all images and their info
+            photoItems.forEach((item, index) => {
+                const img = item.querySelector('img');
+                const overlay = item.querySelector('.photo-overlay');
+                const title = overlay.querySelector('h3').textContent;
+                const description = overlay.querySelector('p').textContent;
+                
+                images.push({
+                    src: img.src,
+                    alt: img.alt,
+                    title: title,
+                    description: description
+                });
+                
+                // Add click event to open modal
+                item.addEventListener('click', function() {
+                    currentImageIndex = index;
+                    openModal();
+                });
+            });
+            
+            function openModal() {
+                const currentImage = images[currentImageIndex];
+                modalImg.src = currentImage.src;
+                modalImg.alt = currentImage.alt;
+                modalCaption.innerHTML = `<h3>${currentImage.title}</h3><p>${currentImage.description}</p>`;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            function showPrevImage() {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateModalImage();
+            }
+            
+            function showNextImage() {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateModalImage();
+            }
+            
+            function updateModalImage() {
+                const currentImage = images[currentImageIndex];
+                modalImg.src = currentImage.src;
+                modalImg.alt = currentImage.alt;
+                modalCaption.innerHTML = `<h3>${currentImage.title}</h3><p>${currentImage.description}</p>`;
+            }
+            
+            // Event listeners
+            closeBtn.addEventListener('click', closeModal);
+            prevBtn.addEventListener('click', showPrevImage);
+            nextBtn.addEventListener('click', showNextImage);
+            
+            // Close modal when clicking outside the image
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (!modal.classList.contains('active')) return;
+                
+                switch(e.key) {
+                    case 'Escape':
+                        closeModal();
+                        break;
+                    case 'ArrowLeft':
+                        showPrevImage();
+                        break;
+                    case 'ArrowRight':
+                        showNextImage();
+                        break;
+                }
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile navigation toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger && navMenu) {
+            hamburger.addEventListener('click', function() {
+                hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    navMenu.classList.remove('active');
+                });
+            });
+        }
+    </script>
 </body>
 </html>
