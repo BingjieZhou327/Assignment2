@@ -125,3 +125,36 @@ button:disabled {
     margin: 10px 0;
     border: 1px solid #000;
 }
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.slide-down {
+    animation: slideDown 0.3s ease-in-out;
+}
+
+@keyframes slideDown {
+    from { 
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.expand-arrow.expanded {
+    transform: rotate(180deg);
+    transition: transform 0.2s ease;
+}
+
+.expand-arrow {
+    transition: transform 0.2s ease;
+}
