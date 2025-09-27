@@ -194,9 +194,13 @@ class StudentManagementSystem {
 
         if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
             detailsRow.style.display = 'table-row';
+            detailsRow.classList.add('slide-down');
+            arrow.classList.add('expanded');
             arrow.textContent = '▲';
         } else {
             detailsRow.style.display = 'none';
+            detailsRow.classList.remove('slide-down');
+            arrow.classList.remove('expanded');
             arrow.textContent = '▼';
         }
     }
@@ -338,7 +342,7 @@ class StudentManagementSystem {
 
     createStudentRow(student) {
         const row = document.createElement('tr');
-        row.className = 'student-row';
+        row.className = 'student-row fade-in';
         row.setAttribute('data-student-id', student.id);
         
         row.innerHTML = `
@@ -386,3 +390,23 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded, initializing student management system...');
     window.studentSystem = new StudentManagementSystem();
 });
+
+window.utils = {
+    formatDate: (date) => {
+        return new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    },
+
+    generateBudgetNumber: () => {
+        return Math.floor(Math.random() * 90000) + 10000;
+    },
+
+    validateInput: (value) => {
+        return value && value.trim().length > 0;
+    }
+};
