@@ -13,6 +13,7 @@ class StudentManagementSystem {
         this.loadInitialData();
         this.bindEvents();
         this.renderTable();
+        this.updateSubmitButtonState();
         console.log('Student management system initialized');
     }
 
@@ -78,6 +79,17 @@ class StudentManagementSystem {
     bindEvents() {
         this.addStudentBtn.addEventListener('click', () => this.addNewStudent());
         this.submitBtn.addEventListener('click', () => this.submitSelectedAwards());
+        this.bindRowEvents();
+    }
+
+    bindRowEvents() {
+        document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => this.handleCheckboxChange(e));
+        });
+
+        document.querySelectorAll('.expand-arrow').forEach(arrow => {
+            arrow.addEventListener('click', (e) => this.handleRowExpand(e));
+        });
     }
 
     addNewStudent() {
@@ -85,7 +97,98 @@ class StudentManagementSystem {
     }
 
     submitSelectedAwards() {
-        console.log('Submit selected awards clicked');
+        if (this.selectedRows.size === 0) {
+            alert('Please select at least one student');
+            return;
+        }
+
+        const selectedStudents = Array.from(this.selectedRows)
+            .map(id => this.students.find(s => s.id === id))
+            .filter(s => s)
+            .map(s => s.name);
+
+        alert(`Successfully submitted ${this.selectedRows.size} student scholarship applications:\n${selectedStudents.join(', ')}`);
+    }
+
+    handleCheckboxChange(event) {
+        const checkbox = event.target;
+        const rowId = parseInt(checkbox.dataset.row);
+        const studentRow = document.querySelector(`tr.student-row[data-student-id="${rowId}"]`);
+
+        if (checkbox.checked) {
+            this.selectedRows.add(rowId);
+            studentRow.classList.add('selected');
+            this.createActionButtons(rowId);
+        } else {
+            this.selectedRows.delete(rowId);
+            studentRow.classList.remove('selected');
+            this.removeActionButtons(rowId);
+        }
+
+        this.updateSubmitButtonState();
+    }
+
+    handleRowExpand(event) {
+        const arrow = event.target;
+        const rowId = parseInt(arrow.dataset.row);
+        const detailsRow = document.querySelector(`tr.details-row[data-student-id="${rowId}"]`);
+
+        if (detailsRow.style.display === 'none' || !detailsRow.style.display) {
+            detailsRow.style.display = 'table-row';
+            arrow.textContent = '▲';
+        } else {
+            detailsRow.style.display = 'none';
+            arrow.textContent = '▼';
+        }
+    }
+
+    createActionButtons(rowId) {
+        const studentRow = document.querySelector(`tr.student-row[data-student-id="${rowId}"]`);
+        const deleteCol = studentRow.querySelector('.delete-col');
+        const editCol = studentRow.querySelector('.edit-col');
+
+        if (!deleteCol.querySelector('.delete-btn')) {
+            const deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.addEventListener('click', () => this.deleteStudent(rowId));
+            deleteCol.appendChild(deleteBtn);
+        }
+
+        if (!editCol.querySelector('.edit-btn')) {
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.textContent = 'Edit';
+            editBtn.addEventListener('click', () => this.editStudent(rowId));
+            editCol.appendChild(editBtn);
+        }
+    }
+
+    removeActionButtons(rowId) {
+        const studentRow = document.querySelector(`tr.student-row[data-student-id="${rowId}"]`);
+        const deleteBtn = studentRow.querySelector('.delete-btn');
+        const editBtn = studentRow.querySelector('.edit-btn');
+
+        if (deleteBtn) deleteBtn.remove();
+        if (editBtn) editBtn.remove();
+    }
+
+    updateSubmitButtonState() {
+        if (this.selectedRows.size > 0) {
+            this.submitBtn.disabled = false;
+            this.submitBtn.classList.add('enabled');
+        } else {
+            this.submitBtn.disabled = true;
+            this.submitBtn.classList.remove('enabled');
+        }
+    }
+
+    deleteStudent(studentId) {
+        console.log('Delete student:', studentId);
+    }
+
+    editStudent(studentId) {
+        console.log('Edit student:', studentId);
     }
 
     renderTable() {
@@ -97,6 +200,21 @@ class StudentManagementSystem {
             
             const detailsRow = this.createDetailsRow(student);
             this.tableBody.appendChild(detailsRow);
+        });
+
+        this.bindRowEvents();
+        
+        // Restore selected state
+        this.selectedRows.forEach(rowId => {
+            const checkbox = document.querySelector(`.row-checkbox[data-row="${rowId}"]`);
+            if (checkbox) {
+                checkbox.checked = true;
+                const studentRow = document.querySelector(`tr.student-row[data-student-id="${rowId}"]`);
+                if (studentRow) {
+                    studentRow.classList.add('selected');
+                    this.createActionButtons(rowId);
+                }
+            }
         });
     }
 
