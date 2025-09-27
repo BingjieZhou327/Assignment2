@@ -21,6 +21,13 @@ class StudentManagementSystem {
         this.tableBody = document.getElementById('tableBody');
         this.submitBtn = document.getElementById('submitBtn');
         this.addStudentBtn = document.getElementById('addStudentBtn');
+        this.messageModal = document.getElementById('messageModal');
+        this.modalMessage = document.getElementById('modalMessage');
+        this.editModal = document.getElementById('editModal');
+        this.editTitle = document.getElementById('editTitle');
+        this.editInput = document.getElementById('editInput');
+        this.editOkBtn = document.getElementById('editOkBtn');
+        this.editCancelBtn = document.getElementById('editCancelBtn');
     }
 
     loadInitialData() {
@@ -79,6 +86,19 @@ class StudentManagementSystem {
     bindEvents() {
         this.addStudentBtn.addEventListener('click', () => this.addNewStudent());
         this.submitBtn.addEventListener('click', () => this.submitSelectedAwards());
+        document.querySelector('.close').addEventListener('click', () => this.closeMessageModal());
+        this.editOkBtn.addEventListener('click', () => this.handleEditOk());
+        this.editCancelBtn.addEventListener('click', () => this.closeEditModal());
+
+        window.addEventListener('click', (event) => {
+            if (event.target === this.messageModal) {
+                this.closeMessageModal();
+            }
+            if (event.target === this.editModal) {
+                this.closeEditModal();
+            }
+        });
+
         this.bindRowEvents();
     }
 
@@ -93,12 +113,48 @@ class StudentManagementSystem {
     }
 
     addNewStudent() {
-        console.log('Add new student clicked');
+        try {
+            const existingIds = this.students.map(s => s.id).sort((a, b) => a - b);
+            let newId = 1;
+            
+            for (let i = 0; i < existingIds.length; i++) {
+                if (existingIds[i] !== newId) {
+                    break;
+                }
+                newId++;
+            }
+
+            const newStudent = {
+                id: newId,
+                name: `Student ${newId}`,
+                advisor: `Teacher ${newId}`,
+                awardStatus: 'Approved',
+                semester: 'Fall',
+                type: 'TA',
+                budget: `${10000 + newId * 1111}`,
+                percentage: '100%',
+                details: {
+                    awardDetails: 'Honors Student',
+                    period: 'Fall 1-2024(TA)',
+                    comments: 'Outstanding',
+                    status: 'A'
+                }
+            };
+
+            this.students.push(newStudent);
+            this.students.sort((a, b) => a.id - b.id);
+            this.renderTable();
+            this.showMessage(`${newStudent.name} Record added successfully`, 'success');
+            
+        } catch (error) {
+            this.showMessage('Failed to add student record', 'error');
+            console.error('Add student failed:', error);
+        }
     }
 
     submitSelectedAwards() {
         if (this.selectedRows.size === 0) {
-            alert('Please select at least one student');
+            this.showMessage('Please select at least one student', 'error');
             return;
         }
 
@@ -107,7 +163,10 @@ class StudentManagementSystem {
             .filter(s => s)
             .map(s => s.name);
 
-        alert(`Successfully submitted ${this.selectedRows.size} student scholarship applications:\n${selectedStudents.join(', ')}`);
+        this.showMessage(
+            `Successfully submitted ${this.selectedRows.size} student scholarship applications:\n${selectedStudents.join(', ')}`, 
+            'success'
+        );
     }
 
     handleCheckboxChange(event) {
@@ -184,11 +243,70 @@ class StudentManagementSystem {
     }
 
     deleteStudent(studentId) {
-        console.log('Delete student:', studentId);
+        try {
+            const student = this.students.find(s => s.id === studentId);
+            if (!student) {
+                throw new Error('Student not found');
+            }
+
+            this.students = this.students.filter(s => s.id !== studentId);
+            this.selectedRows.delete(studentId);
+            this.renderTable();
+            this.updateSubmitButtonState();
+            this.showMessage(`${student.name} Record deleted successfully`, 'success');
+            
+        } catch (error) {
+            this.showMessage('Failed to delete student record', 'error');
+            console.error('Delete student failed:', error);
+        }
     }
 
     editStudent(studentId) {
-        console.log('Edit student:', studentId);
+        const student = this.students.find(s => s.id === studentId);
+        if (!student) {
+            this.showMessage('Student not found', 'error');
+            return;
+        }
+
+        this.currentEditingStudent = studentId;
+        this.editTitle.textContent = `Edit details of ${student.name}`;
+        this.editInput.value = '';
+        this.editModal.style.display = 'flex';
+        this.editInput.focus();
+    }
+
+    handleEditOk() {
+        const inputValue = this.editInput.value.trim();
+        
+        if (inputValue) {
+            const student = this.students.find(s => s.id === this.currentEditingStudent);
+            this.showMessage(`${student.name} data updated successfully`, 'success');
+        } else {
+            this.showMessage('Please enter valid data', 'error');
+            return;
+        }
+        
+        this.closeEditModal();
+    }
+
+    closeEditModal() {
+        this.editModal.style.display = 'none';
+        this.currentEditingStudent = null;
+        this.editInput.value = '';
+    }
+
+    showMessage(message, type = 'info') {
+        this.modalMessage.textContent = message;
+        this.modalMessage.style.color = type === 'error' ? '#f44336' : '#4CAF50';
+        this.messageModal.style.display = 'flex';
+        
+        setTimeout(() => {
+            this.closeMessageModal();
+        }, 3000);
+    }
+
+    closeMessageModal() {
+        this.messageModal.style.display = 'none';
     }
 
     renderTable() {
