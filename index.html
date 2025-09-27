@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Data Management System</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Student Scholarship Management System</h1>
+            <div class="student-info">
+                <p><strong>Name:</strong> <span id="fullName">zhoubingjie</span></p>
+                <p><strong>Student ID:</strong> <span id="nuid">002507028</span></p>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="table-container">
+                <table id="studentTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-col">
+                                <input type="checkbox" id="selectAll" disabled>
+                            </th>
+                            <th>STUDENT</th>
+                            <th>ADVISOR</th>
+                            <th>AWARD STATUS</th>
+                            <th>SEMESTER</th>
+                            <th>TYPE</th>
+                            <th>BUDGET #</th>
+                            <th>PERCENTAGE</th>
+                            <th class="action-col">DELETE</th>
+                            <th class="action-col">EDIT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <tr class="student-row" data-student-id="1">
+                            <td class="checkbox-col">
+                                <input type="checkbox" class="row-checkbox" data-row="1">
+                                <span class="expand-arrow" data-row="1">▼</span>
+                            </td>
+                            <td>Student 1</td>
+                            <td>Teacher 1</td>
+                            <td>Approved</td>
+                            <td>Fall</td>
+                            <td>TA</td>
+                            <td>12345</td>
+                            <td>100%</td>
+                            <td class="action-col delete-col"></td>
+                            <td class="action-col edit-col"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="button-container">
+                <button id="submitBtn" class="submit-btn" disabled>SUBMIT SELECTED AWARDS</button>
+                <button id="addStudentBtn" class="add-student-btn">Add New Student</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
