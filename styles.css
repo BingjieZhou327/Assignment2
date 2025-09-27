@@ -67,3 +67,19 @@ button:disabled {
     cursor: pointer;
     user-select: none;
 }
+
+.details-row {
+    background-color: #f9f9f9;
+}
+
+.student-details {
+    padding: 10px;
+}
+
+.student-details h4 {
+    margin: 0 0 10px 0;
+}
+
+.student-details p {
+    margin: 5px 0;
+}
