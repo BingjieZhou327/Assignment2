@@ -90,11 +90,43 @@
 			<span class="error-message" id="comments-error"></span>
 			<br><br>
 			
-			<input type="submit" id="submitBtn">
+			<input type="submit" id="submitBtn" disabled>
 			<input type="reset" id="resetBtn">
 			<br><br>
 		 </form>
 	 </main>
  </div>
+
+ <script>
+let validationState = {};
+
+const ValidationEngine = {
+    isNotEmpty: function(value) {
+        return value !== null && value !== undefined && value.toString().trim() !== '';
+    },
+    
+    validateEmail: function(value) {
+        const regex = /^[a-zA-Z0-9._%+-]+@northeastern\.edu$/;
+        return regex.test(value);
+    },
+    
+    validatePhone: function(value) {
+        const regex = /^\(\d{3}\)\s\d{3}-\d{4}$/;
+        return regex.test(value);
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function() {
+    const submitBtn = document.getElementById('submitBtn');
+    
+    function updateSubmitButton() {
+        const allValid = Object.values(validationState).every(state => state === true);
+        submitBtn.disabled = !allValid;
+    }
+    
+    updateSubmitButton();
+});
+ </script>
+
  </body>
 </html>
