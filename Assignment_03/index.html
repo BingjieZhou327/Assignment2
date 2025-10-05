@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Data Management System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Student Scholarship Management System</h1>
+            <div class="student-info">
+                <p><strong>Name:</strong> <span id="fullName">zhoubingjie</span></p>
+                <p><strong>Student ID:</strong> <span id="nuid">002507028</span></p>
+            </div>
+        </header>
+        <main class="main-content">
+            <div class="table-container">
+                <table id="studentTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-col">
+                                <input type="checkbox" id="selectAll" disabled>
+                            </th>
+                            <th>STUDENT</th>
+                            <th>ADVISOR</th>
+                            <th>AWARD STATUS</th>
+                            <th>SEMESTER</th>
+                            <th>TYPE</th>
+                            <th>BUDGET #</th>
+                            <th>PERCENTAGE</th>
+                            <th class="action-col">DELETE</th>
+                            <th class="action-col">EDIT</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table content will be dynamically generated -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="button-container">
+                <button id="submitBtn" class="submit-btn" disabled>SUBMIT SELECTED AWARDS</button>
+                <button id="addStudentBtn" class="add-student-btn">Add New Student</button>
+            </div>
+        </main>
+
+        <div id="messageModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modalMessage"></p>
+            </div>
+        </div>
+
+        <div id="editModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h3 id="editTitle"></h3>
+                <input type="text" id="editInput" placeholder="Enter new information">
+                <div class="modal-buttons">
+                    <button id="editOkBtn" class="modal-btn ok-btn">OK</button>
+                    <button id="editCancelBtn" class="modal-btn cancel-btn">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
