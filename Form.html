@@ -41,43 +41,53 @@
 	 <h3>Love something? Hate something? Let us know!</h3>
 		 Note : Fields marked with an asterisk(*) are mandatory
 		 <br><br>
-		 <form method="post">
+		 <form method="post" novalidate>
 			<label>Title*:</label>
 			<input type="radio" name="title" id="miss" value="miss" required="required"/>Miss
 			<input type="radio" name="title" id="mr" value="mr" required="required"/>Mr.
 			<input type="radio" name="title" id="mrs" value="mrs" required="required"/>Mrs.
+			<span class="error-message" id="title-error"></span>
 			<br><br>
 			<label for="firstName">First Name*:</label>
 			<input type="text" name="firstName" id="firstName" placeholder="First Name" />	
+			<span class="error-message" id="firstName-error"></span>
 			<br><br>
+			
 			<label for="lastName">Last Name*:</label>
 			<input type="text" name="lastName" id="lastName" placeholder="Last Name" />
+			<span class="error-message" id="lastName-error"></span>
 			<br><br>
 			
 			<label for="emailId">Email Id*:</label>
 			<input type="text" name="emailId" id="emailId" placeholder="yourname@northeastern.edu" />
+			<span class="error-message" id="emailId-error"></span>
 			<br><br>
 			
 			<label for="phoneNumber">Phone Number*:</label>
 			<input type="text" name="phoneNumber" id="phoneNumber" placeholder="(xxx) xxx-xxxx" />
+			<span class="error-message" id="phoneNumber-error"></span>
 			<br><br>
 			
             <label for="zipcode">ZipCode*:</label>
 			<input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" />
+			<span class="error-message" id="zipcode-error"></span>
 			<br><br>
              
             <label for="streetAddress2">Street Address 2:</label>
 			<input type="text" name="streetAddress2" id="streetAddress2" placeholder="Apartment, suite, etc. (optional)" maxlength="50" />
+			<span class="error-message" id="streetAddress2-error"></span>
 			<br><br>
              
             <label for="howDidYouHear">How did you hear*:</label>
 			<input type='checkbox' name="source" value="facebook" /> Facebook
             <input type='checkbox' name="source" value="google" /> Google
             <input type='checkbox' name="source" value="yelp" /> Yelp 
+			<span class="error-message" id="source-error"></span>
 			<br><br> 
              
 			<label for="comments">Comments*:</label>
 			<textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25"></textarea>
+			<span class="error-message" id="comments-error"></span>
 			<br><br>
 			
 			<input type="submit" id="submitBtn">
