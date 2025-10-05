@@ -1,0 +1,1017 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <title>Feedback</title>
+  <style>
+    label {	float: left;
+			width: 150px;}
+      #container{
+          width: 700px;
+          margin: auto;
+          background-color: beige;
+      } 
+      main{
+          padding: 50px;
+      }
+      
+      .error-message {
+          color: red;
+          font-size: 12px;
+          display: block;
+          margin-left: 150px;
+          margin-top: 2px;
+      }
+      
+      .character-counter {
+          font-size: 11px;
+          color: #666;
+          margin-left: 150px;
+          margin-top: 2px;
+      }
+      
+      .input-error {
+          border: 2px solid red !important;
+      }
+      
+      #resultsTable {
+          width: 100%;
+          margin-top: 20px;
+          border-collapse: collapse;
+      }
+      
+      #resultsTable th, #resultsTable td {
+          padding: 8px;
+          text-align: left;
+          border: 1px solid #ddd;
+      }
+      
+      #resultsTable th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+      }
+      
+      #dynamicCheckboxContainer {
+          margin-left: 150px;
+          margin-top: 10px;
+      }
+      
+      #submitBtn:disabled {
+          background-color: #cccccc;
+          cursor: not-allowed;
+      }
+      
+      input[type="text"], input[type="email"], textarea, select {
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+      }
+      
+      .dynamic-text-field {
+          margin-top: 5px;
+          padding: 5px;
+          border: 1px solid #ccc;
+          border-radius: 3px;
+          width: 200px;
+      }
+      
+      /* AI Assistant Styles */
+      #aiAssistantBtn {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #007bff, #0056b3);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 25px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: bold;
+          box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+          transition: all 0.3s ease;
+          z-index: 1000;
+      }
+      
+      #aiAssistantBtn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
+      }
+      
+      #chatWindow {
+          position: fixed;
+          top: 70px;
+          right: 20px;
+          width: 350px;
+          height: 450px;
+          background: white;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          display: none;
+          flex-direction: column;
+          z-index: 1001;
+      }
+      
+      #chatHeader {
+          background: linear-gradient(135deg, #007bff, #0056b3);
+          color: white;
+          padding: 15px;
+          border-radius: 10px 10px 0 0;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          font-weight: bold;
+      }
+      
+      #chatClose {
+          background: none;
+          border: none;
+          color: white;
+          font-size: 18px;
+          cursor: pointer;
+          padding: 0;
+          width: 25px;
+          height: 25px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+      }
+      
+      #chatClose:hover {
+          background: rgba(255, 255, 255, 0.2);
+      }
+      
+      #chatMessages {
+          flex: 1;
+          padding: 15px;
+          overflow-y: auto;
+          background: #f8f9fa;
+      }
+      
+      .message {
+          margin-bottom: 15px;
+          padding: 10px 12px;
+          border-radius: 18px;
+          max-width: 80%;
+          word-wrap: break-word;
+      }
+      
+      .user-message {
+          background: #007bff;
+          color: white;
+          margin-left: auto;
+          text-align: right;
+      }
+      
+      .bot-message {
+          background: white;
+          color: #333;
+          border: 1px solid #e9ecef;
+          margin-right: auto;
+      }
+      
+      #chatInputContainer {
+          padding: 15px;
+          border-top: 1px solid #e9ecef;
+          display: flex;
+          gap: 10px;
+      }
+      
+      #chatInput {
+          flex: 1;
+          padding: 10px 15px;
+          border: 1px solid #ddd;
+          border-radius: 20px;
+          outline: none;
+          font-size: 14px;
+      }
+      
+      #chatInput:focus {
+          border-color: #007bff;
+          box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+      }
+      
+      #chatSendBtn {
+          background: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 15px;
+          border-radius: 20px;
+          cursor: pointer;
+          font-size: 14px;
+          transition: background 0.3s ease;
+      }
+      
+      #chatSendBtn:hover {
+          background: #0056b3;
+      }
+      
+      #chatSendBtn:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+      }
+  </style>
+ </head>
+ <body>
+ <!-- AI Assistant Button -->
+ <button id="aiAssistantBtn">🤖 AI Assistant</button>
+ 
+ <!-- Chat Window -->
+ <div id="chatWindow">
+     <div id="chatHeader">
+         <span>🤖 Form Assistant</span>
+         <button id="chatClose">×</button>
+     </div>
+     <div id="chatMessages">
+         <div class="message bot-message">
+             Hi! I'm your form assistant. I can help you with questions about filling out this form. Try asking me about email requirements, phone format, or any other form-related questions!
+         </div>
+     </div>
+     <div id="chatInputContainer">
+         <input type="text" id="chatInput" placeholder="Ask me anything about the form..." maxlength="200">
+         <button id="chatSendBtn">Send</button>
+     </div>
+ </div>
+ 
+ <div id="container">
+	 
+	 <main>
+	 <h2>Feeback</h2>
+	 <h3>Love something? Hate something? Let us know!</h3>
+		 Note : Fields marked with an asterisk(*) are mandatory
+		 <br><br>
+		 <form method="post" novalidate>
+			<label>Title*:</label>
+			<input type="radio" name="title" id="miss" value="miss" required="required"/>Miss
+			<input type="radio" name="title" id="mr" value="mr" required="required"/>Mr.
+			<input type="radio" name="title" id="mrs" value="mrs" required="required"/>Mrs.
+			<span class="error-message" id="title-error"></span>
+			<br><br>
+			<label for="firstName">First Name*:</label>
+			<input type="text" name="firstName" id="firstName" placeholder="First Name" />	
+			<span class="error-message" id="firstName-error"></span>
+			<br><br>
+			
+
+			<label for="lastName">Last Name*:</label>
+			<input type="text" name="lastName" id="lastName" placeholder="Last Name" />
+			<span class="error-message" id="lastName-error"></span>
+			<br><br>
+			
+
+			<label for="emailId">Email Id*:</label>
+			<input type="text" name="emailId" id="emailId" placeholder="yourname@northeastern.edu" />
+			<span class="error-message" id="emailId-error"></span>
+			<br><br>
+			
+
+			<label for="phoneNumber">Phone Number*:</label>
+			<input type="text" name="phoneNumber" id="phoneNumber" placeholder="(xxx) xxx-xxxx" />
+			<span class="error-message" id="phoneNumber-error"></span>
+			<br><br>
+			
+            <label for="zipcode">ZipCode*:</label>
+			<input type="text" name="zipcode" id="zipcode" placeholder="xxxxxx" />
+			<span class="error-message" id="zipcode-error"></span>
+			<br><br>
+             
+            <label for="streetAddress2">Street Address 2:</label>
+			<input type="text" name="streetAddress2" id="streetAddress2" placeholder="Apartment, suite, etc. (optional)" maxlength="50" />
+			<span class="error-message" id="streetAddress2-error"></span>
+			<div class="character-counter" id="streetAddress2-counter">0/50 characters used</div>
+			<br><br>
+             
+            <label for="howDidYouHear">How did you hear*:</label>
+			<input type='checkbox' name="source" value="facebook" /> Facebook
+            <input type='checkbox' name="source" value="google" /> Google
+            <input type='checkbox' name="source" value="yelp" /> Yelp 
+			<span class="error-message" id="source-error"></span>
+			<br><br> 
+             
+            <label for="dynamicSelect">Additional Services:</label>
+			<select name="dynamicSelect" id="dynamicSelect">
+				<option value="">Select a service...</option>
+				<option value="consulting">Consulting</option>
+				<option value="support">Technical Support</option>
+				<option value="training">Training</option>
+				<option value="maintenance">Maintenance</option>
+				<option value="customization">Customization</option>
+			</select>
+			<br><br>
+			<div id="dynamicCheckboxContainer"></div>
+             
+			<label for="comments">Comments*:</label>
+			<textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25"></textarea>
+			<span class="error-message" id="comments-error"></span>
+			<br><br>
+			<input type="submit" id="submitBtn" disabled>
+			<input type="reset" id="resetBtn">
+			<br><br>
+		 </form>
+		 
+		 <div id="resultsContainer" style="display: none;">
+			 <h3>Submitted Data</h3>
+			 <table id="resultsTable" border="1" cellpadding="5" cellspacing="0">
+				 <thead>
+					 <tr>
+						 <th>Field</th>
+						 <th>Value</th>
+					 </tr>
+				 </thead>
+				 <tbody id="resultsTableBody">
+				 </tbody>
+			 </table>
+		 </div>
+	 </main>
+ </div>
+
+ <script>
+let submittedData = [];
+let validationState = {};
+
+const ValidationEngine = {
+    isNotEmpty: function(value) {
+        return value !== null && value !== undefined && value.toString().trim() !== '';
+    },
+    
+    checkLength: function(value, min = 0, max = Infinity) {
+        const length = value ? value.toString().trim().length : 0;
+        return length >= min && length <= max;
+    },
+    
+    isAlphanumeric: function(value) {
+        const regex = /^[a-zA-Z0-9\s]*$/;
+        return regex.test(value);
+    },
+    
+    validatePhone: function(value) {
+        const regex = /^\(\d{3}\)\s\d{3}-\d{4}$/;
+        return regex.test(value);
+    },
+    
+    validateEmail: function(value) {
+        const regex = /^[a-zA-Z0-9._%+-]+@northeastern\.edu$/;
+        return regex.test(value);
+    },
+    
+    validateZipCode: function(value) {
+        const regex = /^\d{5}(-\d{4})?$/;
+        return regex.test(value);
+    }
+};
+ 
+const fieldValidationRules = {
+    title: {
+        required: true,
+        validator: function() {
+            return document.querySelector('input[name="title"]:checked') !== null;
+        },
+        errorMessage: 'Please select a title'
+    },
+    firstName: {
+        required: true,
+        minLength: 2,
+        maxLength: 50,
+        alphanumeric: true,
+        errorMessages: {
+            empty: 'First name cannot be empty',
+            minLength: 'First name must be at least 2 characters',
+            maxLength: 'First name cannot exceed 50 characters',
+            alphanumeric: 'First name can only contain letters, numbers and spaces'
+        }
+    },
+    lastName: {
+        required: true,
+        minLength: 2,
+        maxLength: 50,
+        alphanumeric: true,
+        errorMessages: {
+            empty: 'Last name cannot be empty',
+            minLength: 'Last name must be at least 2 characters',
+            maxLength: 'Last name cannot exceed 50 characters',
+            alphanumeric: 'Last name can only contain letters, numbers and spaces'
+        }
+    },
+    emailId: {
+        required: true,
+        validator: ValidationEngine.validateEmail,
+        errorMessage: 'Please enter a valid @northeastern.edu email address'
+    },
+    phoneNumber: {
+        required: true,
+        validator: ValidationEngine.validatePhone,
+        errorMessage: 'Please enter a valid phone number format: (xxx) xxx-xxxx'
+    },
+    zipcode: {
+        required: true,
+        validator: ValidationEngine.validateZipCode,
+        errorMessage: 'Please enter a valid zip code format: xxxxx or xxxxx-xxxx'
+    },
+    streetAddress2: {
+        required: false,
+        maxLength: 50,
+        errorMessages: {
+            maxLength: 'Address cannot exceed 50 characters'
+        }
+    },
+    source: {
+        required: true,
+        validator: function() {
+            return document.querySelectorAll('input[name="source"]:checked').length > 0;
+        },
+        errorMessage: 'Please select at least one source'
+    },
+    comments: {
+        required: true,
+        minLength: 10,
+        maxLength: 500,
+        errorMessages: {
+            empty: 'Comments cannot be empty',
+            minLength: 'Comments must be at least 10 characters',
+            maxLength: 'Comments cannot exceed 500 characters'
+        }
+    },
+    dynamicText: {
+        required: true,
+        minLength: 3,
+        maxLength: 100,
+        errorMessages: {
+            empty: 'This field is required',
+            minLength: 'Must be at least 3 characters',
+            maxLength: 'Maximum 100 characters allowed'
+        }
+    }
+};
+ 
+const RealTimeValidator = {
+    validateField: function(fieldName, value) {
+        const rules = fieldValidationRules[fieldName];
+        if (!rules) return { isValid: true, message: '' };
+        
+        let isValid = true;
+        let message = '';
+        
+        if (rules.required) {
+            if (rules.validator) {
+                isValid = rules.validator();
+                if (!isValid) message = rules.errorMessage;
+            } else if (!ValidationEngine.isNotEmpty(value)) {
+                isValid = false;
+                message = rules.errorMessages ? rules.errorMessages.empty : 'This field is required';
+            }
+        }
+        
+        if (isValid && ValidationEngine.isNotEmpty(value)) {
+            if (rules.minLength && !ValidationEngine.checkLength(value, rules.minLength)) {
+                isValid = false;
+                message = rules.errorMessages ? rules.errorMessages.minLength : `Minimum ${rules.minLength} characters required`;
+            }
+            
+            if (rules.maxLength && !ValidationEngine.checkLength(value, 0, rules.maxLength)) {
+                isValid = false;
+                message = rules.errorMessages ? rules.errorMessages.maxLength : `Maximum ${rules.maxLength} characters allowed`;
+            }
+            
+            if (rules.alphanumeric && !ValidationEngine.isAlphanumeric(value)) {
+                isValid = false;
+                message = rules.errorMessages ? rules.errorMessages.alphanumeric : 'Only letters, numbers and spaces allowed';
+            }
+            
+            if (rules.validator && fieldName !== 'title' && fieldName !== 'source') {
+                if (!rules.validator(value)) {
+                    isValid = false;
+                    message = rules.errorMessage;
+                }
+            }
+        }
+        
+        return { isValid, message };
+    },
+     
+    showError: function(fieldName, message) {
+        const errorElement = document.getElementById(fieldName + '-error');
+        const inputElement = document.getElementById(fieldName) || document.querySelector(`input[name="${fieldName}"]`);
+        
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = message ? 'block' : 'none';
+        }
+        
+        if (inputElement) {
+            if (message) {
+                inputElement.classList.add('input-error');
+            } else {
+                inputElement.classList.remove('input-error');
+            }
+        }
+    },
+    
+    clearError: function(fieldName) {
+        this.showError(fieldName, '');
+    },
+    
+    updateSubmitButton: function() {
+        const submitBtn = document.getElementById('submitBtn');
+        const allValid = Object.values(validationState).every(state => state === true);
+        submitBtn.disabled = !allValid;
+    }
+};
+ 
+const InputMasking = {
+    formatPhoneNumber: function(value) {
+        const numbers = value.replace(/\D/g, '');
+        const limitedNumbers = numbers.substring(0, 10);
+        
+        if (limitedNumbers.length >= 6) {
+            return `(${limitedNumbers.substring(0, 3)}) ${limitedNumbers.substring(3, 6)}-${limitedNumbers.substring(6)}`;
+        } else if (limitedNumbers.length >= 3) {
+            return `(${limitedNumbers.substring(0, 3)}) ${limitedNumbers.substring(3)}`;
+        } else if (limitedNumbers.length > 0) {
+            return `(${limitedNumbers}`;
+        }
+        
+        return '';
+    }
+};
+ 
+const CharacterCounter = {
+    update: function(fieldId, maxLength) {
+        const field = document.getElementById(fieldId);
+        const counter = document.getElementById(fieldId + '-counter');
+        
+        if (field && counter) {
+            const currentLength = field.value.length;
+            counter.textContent = `${currentLength}/${maxLength} characters used`;
+            
+            if (currentLength > maxLength * 0.8) {
+                counter.style.color = '#ff6600';
+            } else {
+                counter.style.color = '#666';
+            }
+        }
+    }
+};
+ 
+const DynamicSelectHandler = {
+    handleSelectChange: function() {
+        const selectElement = document.getElementById('dynamicSelect');
+        const container = document.getElementById('dynamicCheckboxContainer');
+        const selectedValue = selectElement.value;
+        
+        container.innerHTML = '';
+        
+        if (selectedValue) {
+            const checkboxDiv = document.createElement('div');
+            checkboxDiv.innerHTML = `
+                <input type="checkbox" id="dynamic-${selectedValue}" name="dynamic-${selectedValue}" onchange="DynamicSelectHandler.handleCheckboxChange('${selectedValue}')">
+                <label for="dynamic-${selectedValue}">Enable ${selectedValue.charAt(0).toUpperCase() + selectedValue.slice(1)}</label>
+                <div id="textfield-${selectedValue}" style="display: none;">
+                    <input type="text" class="dynamic-text-field" placeholder="Enter details for ${selectedValue}" id="input-${selectedValue}">
+                    <span class="error-message" id="input-${selectedValue}-error"></span>
+                </div>
+            `;
+            container.appendChild(checkboxDiv);
+        }
+    },
+     
+    handleCheckboxChange: function(value) {
+        const checkbox = document.getElementById(`dynamic-${value}`);
+        const textFieldDiv = document.getElementById(`textfield-${value}`);
+        const textField = document.getElementById(`input-${value}`);
+        
+        if (checkbox.checked) {
+            textFieldDiv.style.display = 'block';
+            textField.required = true;
+            
+            textField.addEventListener('input', function() {
+                const validation = RealTimeValidator.validateField('dynamicText', this.value);
+                if (!validation.isValid) {
+                    RealTimeValidator.showError(`input-${value}`, validation.message);
+                } else {
+                    RealTimeValidator.clearError(`input-${value}`);
+                }
+            });
+        } else {
+            textFieldDiv.style.display = 'none';
+            textField.required = false;
+            textField.value = '';
+            RealTimeValidator.clearError(`input-${value}`);
+        }
+    }
+};
+ 
+const FormSubmissionHandler = {
+    collectFormData: function() {
+        const formData = {};
+        
+        const titleElement = document.querySelector('input[name="title"]:checked');
+        formData.title = titleElement ? titleElement.value : '';
+        
+        ['firstName', 'lastName', 'emailId', 'phoneNumber', 'zipcode', 'streetAddress2', 'comments'].forEach(field => {
+            const element = document.getElementById(field);
+            formData[field] = element ? element.value : '';
+        });
+        
+        const sourceElements = document.querySelectorAll('input[name="source"]:checked');
+        formData.source = Array.from(sourceElements).map(el => el.value).join(', ');
+        
+        const dynamicSelect = document.getElementById('dynamicSelect');
+        formData.dynamicSelect = dynamicSelect ? dynamicSelect.value : '';
+        
+        if (formData.dynamicSelect) {
+            const dynamicInput = document.getElementById(`input-${formData.dynamicSelect}`);
+            const dynamicCheckbox = document.getElementById(`dynamic-${formData.dynamicSelect}`);
+            if (dynamicCheckbox && dynamicCheckbox.checked && dynamicInput) {
+                formData[`dynamic_${formData.dynamicSelect}`] = dynamicInput.value;
+            }
+        }
+        
+        return formData;
+    },
+     
+    displayResults: function(formData) {
+        const resultsContainer = document.getElementById('resultsContainer');
+        const resultsTableBody = document.getElementById('resultsTableBody');
+        
+        resultsTableBody.innerHTML = '';
+        
+        const fieldLabels = {
+            title: 'Title',
+            firstName: 'First Name',
+            lastName: 'Last Name',
+            emailId: 'Email Address',
+            phoneNumber: 'Phone Number',
+            zipcode: 'Zip Code',
+            streetAddress2: 'Street Address 2',
+            source: 'Information Source',
+            dynamicSelect: 'Additional Services',
+            comments: 'Comments'
+        };
+        
+        submittedData.push({
+            ...formData,
+            timestamp: new Date().toLocaleString()
+        });
+        
+        submittedData.forEach((data, index) => {
+            if (index > 0) {
+                const separatorRow = document.createElement('tr');
+                separatorRow.innerHTML = '<td colspan="2" style="background-color: #f0f0f0; text-align: center; font-weight: bold;">---</td>';
+                resultsTableBody.appendChild(separatorRow);
+            }
+            
+            const timestampRow = document.createElement('tr');
+            timestampRow.innerHTML = `<td><strong>Submission Time</strong></td><td>${data.timestamp}</td>`;
+            resultsTableBody.appendChild(timestampRow);
+            
+            Object.keys(fieldLabels).forEach(field => {
+                const row = document.createElement('tr');
+                let value = data[field] || '';
+                
+                if (field === 'streetAddress2' && !value) {
+                    value = '';
+                }
+                
+                row.innerHTML = `<td>${fieldLabels[field]}</td><td>${value}</td>`;
+                resultsTableBody.appendChild(row);
+            });
+            
+            Object.keys(data).forEach(key => {
+                if (key.startsWith('dynamic_')) {
+                    const row = document.createElement('tr');
+                    const serviceName = key.replace('dynamic_', '');
+                    row.innerHTML = `<td>${serviceName} Details</td><td>${data[key]}</td>`;
+                    resultsTableBody.appendChild(row);
+                }
+            });
+        });
+        
+        resultsContainer.style.display = 'block';
+    },
+     
+    clearForm: function() {
+        ['firstName', 'lastName', 'emailId', 'phoneNumber', 'zipcode', 'streetAddress2', 'comments'].forEach(field => {
+            const element = document.getElementById(field);
+            if (element) element.value = '';
+        });
+        
+        document.querySelectorAll('input[name="title"]').forEach(radio => radio.checked = false);
+        
+        document.querySelectorAll('input[name="source"]').forEach(checkbox => checkbox.checked = false);
+        
+        const dynamicSelect = document.getElementById('dynamicSelect');
+        if (dynamicSelect) dynamicSelect.value = '';
+        
+        const dynamicContainer = document.getElementById('dynamicCheckboxContainer');
+        if (dynamicContainer) dynamicContainer.innerHTML = '';
+        
+        document.querySelectorAll('.error-message').forEach(error => {
+            error.textContent = '';
+            error.style.display = 'none';
+        });
+        
+        document.querySelectorAll('.input-error').forEach(input => {
+            input.classList.remove('input-error');
+        });
+        
+        validationState = {};
+        
+        document.getElementById('submitBtn').disabled = true;
+        
+        CharacterCounter.update('streetAddress2', 50);
+    }
+};
+ 
+document.addEventListener('DOMContentLoaded', function() {
+    ['firstName', 'lastName', 'emailId', 'zipcode', 'streetAddress2', 'comments'].forEach(fieldName => {
+        const element = document.getElementById(fieldName);
+        if (element) {
+            element.addEventListener('input', function() {
+                const validation = RealTimeValidator.validateField(fieldName, this.value);
+                validationState[fieldName] = validation.isValid;
+                
+                if (!validation.isValid) {
+                    RealTimeValidator.showError(fieldName, validation.message);
+                } else {
+                    RealTimeValidator.clearError(fieldName);
+                }
+                
+                RealTimeValidator.updateSubmitButton();
+            });
+            
+            element.addEventListener('blur', function() {
+                const validation = RealTimeValidator.validateField(fieldName, this.value);
+                validationState[fieldName] = validation.isValid;
+                
+                if (!validation.isValid) {
+                    RealTimeValidator.showError(fieldName, validation.message);
+                } else {
+                    RealTimeValidator.clearError(fieldName);
+                }
+                
+                RealTimeValidator.updateSubmitButton();
+            });
+        }
+    });
+     
+    const phoneField = document.getElementById('phoneNumber');
+    if (phoneField) {
+        phoneField.addEventListener('input', function() {
+            const cursorPosition = this.selectionStart;
+            const oldValue = this.value;
+            const newValue = InputMasking.formatPhoneNumber(this.value);
+            
+            this.value = newValue;
+            
+            const validation = RealTimeValidator.validateField('phoneNumber', newValue);
+            validationState.phoneNumber = validation.isValid;
+            
+            if (!validation.isValid) {
+                RealTimeValidator.showError('phoneNumber', validation.message);
+            } else {
+                RealTimeValidator.clearError('phoneNumber');
+            }
+            
+            RealTimeValidator.updateSubmitButton();
+        });
+    }
+     
+    document.querySelectorAll('input[name="title"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const validation = RealTimeValidator.validateField('title', null);
+            validationState.title = validation.isValid;
+            
+            if (!validation.isValid) {
+                RealTimeValidator.showError('title', validation.message);
+            } else {
+                RealTimeValidator.clearError('title');
+            }
+            
+            RealTimeValidator.updateSubmitButton();
+        });
+    });
+     
+    document.querySelectorAll('input[name="source"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const validation = RealTimeValidator.validateField('source', null);
+            validationState.source = validation.isValid;
+            
+            if (!validation.isValid) {
+                RealTimeValidator.showError('source', validation.message);
+            } else {
+                RealTimeValidator.clearError('source');
+            }
+            
+            RealTimeValidator.updateSubmitButton();
+        });
+    });
+     
+    const streetAddress2Field = document.getElementById('streetAddress2');
+    if (streetAddress2Field) {
+        streetAddress2Field.addEventListener('input', function() {
+            CharacterCounter.update('streetAddress2', 50);
+        });
+        
+        CharacterCounter.update('streetAddress2', 50);
+    }
+     
+    const dynamicSelect = document.getElementById('dynamicSelect');
+    if (dynamicSelect) {
+        dynamicSelect.addEventListener('change', DynamicSelectHandler.handleSelectChange);
+    }
+     
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            let allValid = true;
+            Object.keys(fieldValidationRules).forEach(fieldName => {
+                let value;
+                if (fieldName === 'title' || fieldName === 'source') {
+                    value = null;
+                } else {
+                    const element = document.getElementById(fieldName);
+                    value = element ? element.value : '';
+                }
+                
+                const validation = RealTimeValidator.validateField(fieldName, value);
+                validationState[fieldName] = validation.isValid;
+                
+                if (!validation.isValid) {
+                    RealTimeValidator.showError(fieldName, validation.message);
+                    allValid = false;
+                }
+            });
+            
+            if (allValid) {
+                const formData = FormSubmissionHandler.collectFormData();
+                FormSubmissionHandler.displayResults(formData);
+                FormSubmissionHandler.clearForm();
+            }
+        });
+    }
+     
+    const resetBtn = document.getElementById('resetBtn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', function() {
+            setTimeout(() => {
+                FormSubmissionHandler.clearForm();
+            }, 10);
+        });
+    }
+});
+
+// AI Assistant Chatbot System
+const ChatBot = {
+    faqs: [
+        {
+            keywords: ['email', 'mail', 'northeastern', '@', 'address'],
+            question: 'What email can I use?',
+            answer: 'You must use your Northeastern email address ending with @northeastern.edu (example: student@northeastern.edu). Other email domains are not accepted.'
+        },
+        {
+            keywords: ['phone', 'number', 'format', 'telephone'],
+            question: 'What format should the phone number be?',
+            answer: 'The phone number must be in the format (XXX) XXX-XXXX. For example: (617) 373-2000. The system will automatically format it as you type.'
+        },
+        {
+            keywords: ['zip', 'zipcode', 'postal', 'code', 'digits'],
+            question: 'How many digits should the zip code have?',
+            answer: 'The zip code must be exactly 5 digits (like 02115) or 5 digits followed by a dash and 4 more digits (like 02115-1234).'
+        },
+        {
+            keywords: ['required', 'mandatory', 'must', 'need', 'fields'],
+            question: 'Which fields are required?',
+            answer: 'All fields marked with an asterisk (*) are required: Title, First Name, Last Name, Email, Phone Number, Zip Code, How did you hear about us, and Comments. Only Street Address 2 is optional.'
+        },
+        {
+            keywords: ['street', 'address', 'optional', 'address2', 'apartment'],
+            question: 'Is Street Address 2 mandatory?',
+            answer: 'No, Street Address 2 is optional. You can leave it blank if you don\'t have an apartment number, suite, or additional address information. It will remain empty in the results table if not filled.'
+        },
+        {
+            keywords: ['comments', 'text', 'characters', 'long'],
+            question: 'How long should my comments be?',
+            answer: 'Comments must be at least 10 characters long and cannot exceed 500 characters. Write something meaningful about your feedback or experience.'
+        },
+        {
+            keywords: ['name', 'first', 'last', 'letters', 'numbers'],
+            question: 'What can I put in the name fields?',
+            answer: 'First Name and Last Name can only contain letters, numbers, and spaces. Each must be at least 2 characters and no more than 50 characters long.'
+        },
+        {
+            keywords: ['submit', 'button', 'disabled', 'enable'],
+            question: 'Why is the submit button disabled?',
+            answer: 'The submit button is enabled only when all required fields are filled correctly. Make sure all fields with asterisks (*) are completed and valid.'
+        }
+    ],
+    
+    findAnswer: function(userInput) {
+        const input = userInput.toLowerCase().trim();
+        
+        for (let faq of this.faqs) {
+            for (let keyword of faq.keywords) {
+                if (input.includes(keyword.toLowerCase())) {
+                    return faq.answer;
+                }
+            }
+        }
+        
+        return "Sorry, I don't know that yet. Please check the form instructions or try asking about email requirements, phone format, zip code, required fields, or address information.";
+    },
+    
+    addMessage: function(message, isUser = false) {
+        const messagesContainer = document.getElementById('chatMessages');
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${isUser ? 'user-message' : 'bot-message'}`;
+        messageDiv.textContent = message;
+        messagesContainer.appendChild(messageDiv);
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    },
+    
+    handleUserMessage: function(message) {
+        if (!message.trim()) return;
+        
+        this.addMessage(message, true);
+        
+        setTimeout(() => {
+            const response = this.findAnswer(message);
+            this.addMessage(response, false);
+        }, 500);
+    }
+};
+
+// Chat Window Controls
+const ChatWindow = {
+    init: function() {
+        const aiBtn = document.getElementById('aiAssistantBtn');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const chatSendBtn = document.getElementById('chatSendBtn');
+        
+        if (!aiBtn || !chatWindow || !chatClose || !chatInput || !chatSendBtn) {
+            console.error('Chat elements not found');
+            return;
+        }
+        
+        aiBtn.addEventListener('click', () => {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+            if (chatWindow.style.display === 'flex') {
+                chatInput.focus();
+            }
+        });
+        
+        chatClose.addEventListener('click', () => {
+            chatWindow.style.display = 'none';
+        });
+        
+        chatSendBtn.addEventListener('click', () => {
+            const message = chatInput.value.trim();
+            if (message) {
+                ChatBot.handleUserMessage(message);
+                chatInput.value = '';
+                chatSendBtn.disabled = true;
+                setTimeout(() => {
+                    chatSendBtn.disabled = false;
+                }, 500);
+            }
+        });
+        
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                chatSendBtn.click();
+            }
+        });
+        
+        chatInput.addEventListener('input', () => {
+            chatSendBtn.disabled = !chatInput.value.trim();
+        });
+        
+        // Close chat when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!chatWindow.contains(e.target) && !aiBtn.contains(e.target)) {
+                if (chatWindow.style.display === 'flex') {
+                    chatWindow.style.display = 'none';
+                }
+            }
+        });
+        
+        // Initialize send button state
+        chatSendBtn.disabled = true;
+    }
+};
+
+// Initialize chat system
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(() => {
+        ChatWindow.init();
+    }, 100);
+});
+ </script>
+
+ </body>
+</html>
