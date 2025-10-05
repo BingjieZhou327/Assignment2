@@ -85,6 +85,18 @@
 			<span class="error-message" id="source-error"></span>
 			<br><br> 
              
+            <label for="dynamicSelect">Additional Services:</label>
+			<select name="dynamicSelect" id="dynamicSelect">
+				<option value="">Select a service...</option>
+				<option value="consulting">Consulting</option>
+				<option value="support">Technical Support</option>
+				<option value="training">Training</option>
+				<option value="maintenance">Maintenance</option>
+				<option value="customization">Customization</option>
+			</select>
+			<br><br>
+			<div id="dynamicCheckboxContainer"></div>
+             
 			<label for="comments">Comments*:</label>
 			<textarea name="text" id="comments" placeholder="Your comments" rows="5" cols="25"></textarea>
 			<span class="error-message" id="comments-error"></span>
