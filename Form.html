@@ -31,9 +31,84 @@
           border: 1px solid #ccc;
           border-radius: 3px;
       }
+      
+      /* AI Assistant Styles */
+      #aiAssistantBtn {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(135deg, #007bff, #0056b3);
+          color: white;
+          border: none;
+          padding: 12px 20px;
+          border-radius: 25px;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: bold;
+          box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+          transition: all 0.3s ease;
+          z-index: 1000;
+      }
+      
+      #chatWindow {
+          position: fixed;
+          top: 70px;
+          right: 20px;
+          width: 350px;
+          height: 450px;
+          background: white;
+          border: 1px solid #ddd;
+          border-radius: 10px;
+          box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+          display: none;
+          flex-direction: column;
+          z-index: 1001;
+      }
+      
+      .message {
+          margin-bottom: 15px;
+          padding: 10px 12px;
+          border-radius: 18px;
+          max-width: 80%;
+          word-wrap: break-word;
+      }
+      
+      .user-message {
+          background: #007bff;
+          color: white;
+          margin-left: auto;
+          text-align: right;
+      }
+      
+      .bot-message {
+          background: white;
+          color: #333;
+          border: 1px solid #e9ecef;
+          margin-right: auto;
+      }
   </style>
  </head>
  <body>
+ <!-- AI Assistant Button -->
+ <button id="aiAssistantBtn">🤖 AI Assistant</button>
+ 
+ <!-- Chat Window -->
+ <div id="chatWindow">
+     <div style="background: linear-gradient(135deg, #007bff, #0056b3); color: white; padding: 15px; border-radius: 10px 10px 0 0; display: flex; justify-content: space-between; align-items: center; font-weight: bold;">
+         <span>🤖 Form Assistant</span>
+         <button id="chatClose" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer;">×</button>
+     </div>
+     <div id="chatMessages" style="flex: 1; padding: 15px; overflow-y: auto; background: #f8f9fa;">
+         <div class="message bot-message">
+             Hi! I'm your form assistant. I can help you with questions about filling out this form. Try asking me about email requirements, phone format, or any other form-related questions!
+         </div>
+     </div>
+     <div style="padding: 15px; border-top: 1px solid #e9ecef; display: flex; gap: 10px;">
+         <input type="text" id="chatInput" placeholder="Ask me anything about the form..." maxlength="200" style="flex: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 20px; outline: none; font-size: 14px;">
+         <button id="chatSendBtn" style="background: #007bff; color: white; border: none; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 14px;">Send</button>
+     </div>
+ </div>
+ 
  <div id="container">
 	 
 	 <main>
@@ -151,6 +226,57 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     updateSubmitButton();
+});
+
+// Simple AI Assistant
+const ChatBot = {
+    faqs: [
+        { keywords: ['email'], answer: 'You must use your Northeastern email address ending with @northeastern.edu' },
+        { keywords: ['phone'], answer: 'Phone number format: (XXX) XXX-XXXX' },
+        { keywords: ['required'], answer: 'All fields with asterisk (*) are required' }
+    ],
+    
+    findAnswer: function(input) {
+        for (let faq of this.faqs) {
+            for (let keyword of faq.keywords) {
+                if (input.toLowerCase().includes(keyword)) {
+                    return faq.answer;
+                }
+            }
+        }
+        return "Sorry, I don't know that yet. Try asking about email, phone, or required fields.";
+    }
+};
+
+document.getElementById('aiAssistantBtn').addEventListener('click', function() {
+    const chatWindow = document.getElementById('chatWindow');
+    chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+});
+
+document.getElementById('chatClose').addEventListener('click', function() {
+    document.getElementById('chatWindow').style.display = 'none';
+});
+
+document.getElementById('chatSendBtn').addEventListener('click', function() {
+    const input = document.getElementById('chatInput');
+    const messages = document.getElementById('chatMessages');
+    
+    if (input.value.trim()) {
+        // Add user message
+        const userMsg = document.createElement('div');
+        userMsg.className = 'message user-message';
+        userMsg.textContent = input.value;
+        messages.appendChild(userMsg);
+        
+        // Add bot response
+        const botMsg = document.createElement('div');
+        botMsg.className = 'message bot-message';
+        botMsg.textContent = ChatBot.findAnswer(input.value);
+        messages.appendChild(botMsg);
+        
+        input.value = '';
+        messages.scrollTop = messages.scrollHeight;
+    }
 });
  </script>
 
